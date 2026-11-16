@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prashant Sharma — Android Engineer</title>
+<meta name="description" content="Prashant Sharma: senior Android engineer for streaming, Android TV, Fire TV, and on-device AI. Available for contract and contract-to-hire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a TV "10-foot UI" — every card takes a D-pad style focus ring; services first, résumé on request. */
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --ink: #16181c;
+  --muted: #5d6168;
+  --line: #d9dbd5;
+  --focus: #c97a00;          /* the TV focus-ring amber */
+  --focus-soft: #f6e3c2;
+  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --surface: #1b1e24; --ink: #eef0f2; --muted: #a2a7b0;
+    --line: #2c3038; --focus: #f2b33d; --focus-soft: #3a2f1a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --surface: #1b1e24; --ink: #eef0f2; --muted: #a2a7b0;
+  --line: #2c3038; --focus: #f2b33d; --focus-soft: #3a2f1a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- nav ---------- */
+nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+.brand { font: 800 18px var(--display); font-stretch: 112%; letter-spacing: .02em; text-decoration: none; }
+.brand span { color: var(--focus); }
+nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font: 600 13px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+nav ul a { text-decoration: none; color: var(--muted); }
+nav ul a:hover, nav ul a:focus-visible { color: var(--ink); }
+@media (max-width: 720px) { nav ul { display: none; } }
+
+/* ---------- focus ring: the signature ---------- */
+.focusable { border-radius: 14px; outline: 3px solid transparent; outline-offset: 3px; transition: outline-color .18s, transform .18s, box-shadow .18s; }
+.focusable:hover, .focusable:focus-visible, .focusable:focus-within {
+  outline-color: var(--focus); transform: scale(1.015);
+  box-shadow: 0 14px 34px -18px color-mix(in srgb, var(--focus) 60%, transparent);
+}
+a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- hero ---------- */
+.hero { padding: 64px 0 40px; }
+.eyebrow { font: 600 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--focus); margin: 0 0 14px; }
+h1 { font: 800 clamp(40px, 7vw, 76px)/0.98 var(--display); font-stretch: 118%; letter-spacing: -.01em; margin: 0 0 20px; text-wrap: balance; }
+.lede { font-size: 20px; max-width: 34ch; margin: 0 0 22px; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; }
+.chips li { font: 600 12.5px var(--mono); padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.chips li.on { border-color: var(--focus); background: var(--focus-soft); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font: 700 15px var(--body); padding: 12px 18px; border-radius: 10px; text-decoration: none; border: 2px solid var(--ink); }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn:hover { border-color: var(--focus); }
+.btn.primary:hover { background: var(--focus); color: #16181c; }
+@media (max-width: 760px) { .hero { padding-top: 40px; } }
+
+/* ---------- proof strip ---------- */
+.proof { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 8px 0 72px; }
+.proof div { background: var(--surface); padding: 18px 20px; }
+.proof b { display: block; font: 800 32px/1.1 var(--display); font-stretch: 110%; font-variant-numeric: tabular-nums; }
+.proof span { font-size: 14px; color: var(--muted); }
+@media (max-width: 760px) { .proof { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- sections ---------- */
+section { margin: 0 0 84px; scroll-margin-top: 76px; }
+h2 { font: 800 clamp(28px, 4vw, 40px)/1.05 var(--display); font-stretch: 115%; margin: 0 0 8px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 28px; max-width: 60ch; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { font: 700 19px/1.25 var(--display); font-stretch: 105%; margin: 0; }
+.card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.tag { font: 600 12px var(--mono); color: var(--focus); text-transform: uppercase; letter-spacing: .06em; }
+
+/* ---------- projects ---------- */
+.status { align-self: flex-start; font: 600 11.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); }
+.status.live { background: #1f7a4d; border-color: #1f7a4d; color: #fff; }
+.status.progress { background: var(--focus-soft); border-color: var(--focus); color: var(--ink); }
+.stack { font: 500 12.5px var(--mono); color: var(--muted); }
+.links { display: flex; gap: 14px; margin-top: auto; padding-top: 8px; font: 700 14px var(--body); }
+.links a { text-decoration-color: var(--focus); text-underline-offset: 3px; }
+
+/* ---------- skills ---------- */
+.skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+.skills div { border-top: 3px solid var(--ink); padding-top: 10px; }
+.skills h3 { font: 600 12.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 6px; }
+.skills p { margin: 0; font-size: 15.5px; color: var(--muted); }
+
+/* ---------- contact ---------- */
+.contact { background: var(--ink); color: var(--bg); border-radius: 18px; padding: 40px; display: grid; gap: 14px; }
+.contact h2 { color: var(--bg); }
+.contact p { margin: 0; max-width: 56ch; opacity: .85; }
+.contact .addr { font: 700 clamp(20px, 3.4vw, 30px) var(--mono); word-break: break-all; }
+.contact .btn { border-color: var(--bg); color: var(--bg); }
+.contact .btn.primary { background: var(--focus); border-color: var(--focus); color: #16181c; }
+footer { padding: 28px 0 48px; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+</style>
+</head>
+<body>
+
+<script>
+/* =====================================================================
+   EDIT THIS BLOCK TO UPDATE THE SITE.
+   - Add a project: copy one { ... } entry in "projects".
+   - status: "live" (working demo), "progress" (in progress), or "source" (code on GitHub).
+   - Empty links ("") are hidden automatically.
+   ===================================================================== */
+const SITE = {
+  email: "hello@psharma.dev",
+  bookingUrl: "",              // e.g. "https://cal.com/psharma/intro" — the button appears when set
+  resumeUrl: "",               // e.g. "resume.pdf" next to index.html, or a link to your résumé doc; empty = "Request résumé" email button
+  linkedin: "https://linkedin.com/in/sharmaps",
+  github: "https://github.com/p-sharma",
+  projects: [
+    {
+      name: "Stash It",
+      status: "source",
+      stack: "Kotlin · Compose · Room · WorkManager · MediaPipe · Python · FastAPI",
+      text: "Save short videos from YouTube, TikTok, and Instagram and find them by meaning. Semantic search runs fully on the phone with EmbeddingGemma, so a library never leaves the device.",
+      github: "https://github.com/p-sharma/stashit",
+      demo: ""
+    },
+    {
+      name: "LangGraph Content Pipeline",
+      status: "progress",
+      stack: "Python · LangGraph · LangSmith · Tavily · FastAPI",
+      text: "Multi-agent pipeline that turns a topic into a cited summary: search, rank, and parallel research agents today; a critic fact-check loop and human approval are next.",
+      github: "https://github.com/p-sharma/langgraph-content-pipeline",
+      demo: ""
+    },
+    {
+      name: "Daily Intentional TODO",
+      status: "source",
+      stack: "Kotlin · Compose · ML Kit · Claude Code · Notion · Jira",
+      text: "Android app that sorts tasks with on-device ML Kit entity extraction, built end to end through an AI-assisted workflow: PRD in Notion, stories in Jira, code with Claude Code.",
+      github: "https://github.com/p-sharma/TodoApp",
+      demo: ""
+    },
+    {
+      name: "PageTalk",
+      status: "source",
+      stack: "TypeScript · Chrome extension · WebLLM · WebGPU",
+      text: "Chrome side panel for chatting with Reddit pages using a local LLM that runs entirely in the browser on WebGPU, with answers read aloud.",
+      github: "https://github.com/p-sharma/PageTalk",
+      demo: ""
+    }
+  ]
+};
+</script>
+
+<nav aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">psharma<span>.dev</span></a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#engage">Work with me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Senior Android Engineer · Streaming · Android TV · On-device AI</p>
+      <h1>Prashant Sharma</h1>
+      <p class="lede">I help teams build, speed up, and modernize Android apps for phones and TVs, and add AI that runs on the device. Fifteen years of hands-on work on subscription streaming apps.</p>
+      <ul class="chips" aria-label="Availability">
+        <li class="on">Available for contract and contract-to-hire</li>
+        <li>No sponsorship needed</li>
+        <li>Remote, hybrid, or on-site</li>
+      </ul>
+      <div class="cta" id="hero-cta"></div>
+    </div>
+  </header>
+
+  <div class="proof" aria-label="Highlights">
+    <div><b>15 yrs</b><span>building Android apps in production</span></div>
+    <div><b>6</b><span>brand apps on one shared codebase</span></div>
+    <div><b>800K</b><span>users on a flagship streaming app</span></div>
+    <div><b>~30%</b><span>faster cold start across all six apps</span></div>
+  </div>
+
+  <section id="services" aria-labelledby="services-h">
+    <h2 id="services-h">How I can help your team</h2>
+    <p class="sub">Each of these is work I have done in production.</p>
+    <div class="grid">
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Contract · Contract-to-hire</span>
+        <h3>Senior Android engineer on your team</h3>
+        <p>Kotlin, Compose, Coroutines, and Hilt on phone, tablet, Android TV, and Fire TV. I join established teams and pick up existing codebases quickly.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Performance</span>
+        <h3>Faster, steadier apps</h3>
+        <p>Cold start, memory leaks, and Compose recomposition, found with the profilers and fixed in code. Crash triage in New Relic with fixes prioritized by severity.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Modernization</span>
+        <h3>Move a legacy codebase forward</h3>
+        <p>Java to Kotlin, RxJava to Coroutines, Dagger to Hilt, XML to Compose, planned as small stories your developers can work on in parallel.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">TV &amp; streaming</span>
+        <h3>Android TV, Fire TV, and casting</h3>
+        <p>Leanback and D-pad focus, Chromecast, live TV, Play Billing subscriptions, and accessibility to WCAG and CVAA with TalkBack and VoiceView.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">On-device AI</span>
+        <h3>AI features that run on the phone</h3>
+        <p>Semantic search, entity extraction, and local models with MediaPipe and ML Kit, plus agent prototypes in LangGraph.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Delivery</span>
+        <h3>CI/CD and release ownership</h3>
+        <p>Jenkins and Gradle pipelines, staged rollouts on Google Play and the Amazon Appstore, and the dev seat in go/no-go meetings.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="results" aria-labelledby="results-h">
+    <h2 id="results-h">Selected results</h2>
+    <p class="sub">Outcomes from production apps on phone, tablet, Android TV, and Fire TV. Full work history is on my résumé.</p>
+    <div class="grid">
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Performance</span>
+        <h3>~30% faster cold start across six apps</h3>
+        <p>Took launch time from 10–12 seconds to 7–8 by deferring SDK initialization and trimming startup work, shipped to every app on a shared codebase.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Modernization</span>
+        <h3>A Compose migration a team could run in parallel</h3>
+        <p>Broke a full app section into small, estimated stories so several developers could move from XML to Compose at once.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Delivery</span>
+        <h3>First CI/CD pipeline for the team</h3>
+        <p>Builds on every pull request and merge, plus staged rollouts on Google Play and the Amazon Appstore.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Accessibility</span>
+        <h3>WCAG and CVAA on mobile and Fire TV</h3>
+        <p>TalkBack and VoiceView support, D-pad focus order on TV, text scaling, and larger touch targets agreed with design.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Stability</span>
+        <h3>Crash triage that product could act on</h3>
+        <p>Turned New Relic crash data into prioritized tickets by severity, and fixed many of them directly.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Leadership</span>
+        <h3>Kept a team shipping through a reorg</h3>
+        <p>Led three developers through sprint planning, standups, and reporting to management, and mentored interns.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="engage" aria-labelledby="engage-h">
+    <h2 id="engage-h">Ways to work together</h2>
+    <p class="sub">Pick the shape that fits your team. Every engagement starts with a short intro call.</p>
+    <div class="grid">
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Embedded</span>
+        <h3>Contract</h3>
+        <p>I join your team as a senior Android engineer for a set period, working in your sprints, repo, and tools.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Try before you hire</span>
+        <h3>Contract-to-hire</h3>
+        <p>Start as a contractor and convert to full-time when it works for both sides. No sponsorship needed.</p>
+      </article>
+      <article class="card focusable" tabindex="0">
+        <span class="tag">Focused</span>
+        <h3>Short consulting project</h3>
+        <p>A scoped piece of work: a performance review, a modernization plan, a TV or accessibility pass, or an on-device AI prototype.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h">Projects</h2>
+    <p class="sub">What I am building now. Each links to its code; working demos are added as they ship.</p>
+    <div class="grid" id="project-grid"></div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <h2 id="skills-h">Skills</h2>
+    <p class="sub">The tools I reach for, grouped the way projects use them.</p>
+    <div class="skills">
+      <div><h3>Android</h3><p>Kotlin, Java, Jetpack Compose, Coroutines, Flow, Hilt, Dagger, Room, WorkManager, Retrofit, Kotlin Multiplatform</p></div>
+      <div><h3>TV &amp; media</h3><p>Android TV, Leanback, Fire TV, ExoPlayer, Chromecast, live TV, Google Play Billing, deep links</p></div>
+      <div><h3>Architecture &amp; quality</h3><p>MVVM, MVI, Clean Architecture, ADRs, JUnit, Jenkins, Gradle, New Relic, profilers, accessibility</p></div>
+      <div><h3>AI</h3><p>MediaPipe, ML Kit, EmbeddingGemma, LangGraph, LangSmith, Claude Code, Python, FastAPI</p></div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="contact">
+      <h2 id="contact-h">Let's talk about your app</h2>
+      <p>Tell me what you are building and where it hurts: a slow launch, a legacy codebase, a TV app, or an AI idea. Happy to send my résumé on request.</p>
+      <div class="addr" id="contact-addr"></div>
+      <div class="cta" id="contact-cta"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Prashant Sharma</span>
+  <span>psharma.dev</span>
+</footer>
+
+<script>
+(function () {
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const link = (href, label, cls) => href ? `<a class="btn ${cls || ""}" href="${esc(href)}">${label}</a>` : "";
+
+  const ctas =
+    link("mailto:" + SITE.email, "Email me", "primary") +
+    link(SITE.bookingUrl, "Book a 20-minute call") +
+    (SITE.resumeUrl ? link(SITE.resumeUrl, "Résumé") : link("mailto:" + SITE.email + "?subject=" + encodeURIComponent("Résumé request"), "Request résumé")) +
+    link(SITE.linkedin, "LinkedIn") +
+    link(SITE.github, "GitHub");
+  document.getElementById("hero-cta").innerHTML = ctas;
+  document.getElementById("contact-cta").innerHTML = ctas;
+  document.getElementById("contact-addr").textContent = SITE.email;
+
+  const labels = { live: "Live demo", progress: "In progress", source: "Source on GitHub" };
+  document.getElementById("project-grid").innerHTML = SITE.projects.map(p => `
+    <article class="card focusable">
+      <span class="status ${p.status === "live" ? "live" : p.status === "progress" ? "progress" : ""}">${labels[p.status] || labels.source}</span>
+      <h3>${esc(p.name)}</h3>
+      <p>${esc(p.text)}</p>
+      <span class="stack">${esc(p.stack)}</span>
+      <div class="links">
+        ${p.github ? `<a href="${esc(p.github)}">Code</a>` : ""}
+        ${p.demo ? `<a href="${esc(p.demo)}">Try it</a>` : ""}
+      </div>
+    </article>`).join("");
+
+})();
+</script>
+</body>
+</html>
